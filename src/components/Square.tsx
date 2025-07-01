@@ -14,6 +14,7 @@ const Square = ({ value, onSquareClick }: SquareProps) => {
         padding: 0,
         backgroundColor: "#fff",
         border: "1px solid #999",
+        color: "#000",
         outline: 0,
         borderRadius: 0,
         fontSize: "1rem",

@@ -9,29 +9,32 @@ type Squares = Square[];
 type StateUpdater<T> = T | ((prev: T) => T);
 
 const useGameStore = create(
-  combine({ 
-    squares: Array(9).fill(null), 
-    xIsNext: true }, 
-  (set) => {
-    return {
-      setSquares: (nextSquares: StateUpdater<Squares>) => {
-        set((state) => ({
-          squares:
-            typeof nextSquares === "function"
-              ? nextSquares(state.squares)
-              : nextSquares,
-        }));
-      },
-      setXIsNext: (nextXIsNext: StateUpdater<boolean>) => {
-        set((state) => ({
-          xIsNext:
-            typeof nextXIsNext === "function"
-              ? nextXIsNext(state.xIsNext)
-              : nextXIsNext,
-        }));
-      },
-    };
-  })
+  combine(
+    {
+      squares: Array(9).fill(null),
+      xIsNext: true,
+    },
+    (set) => {
+      return {
+        setSquares: (nextSquares: StateUpdater<Squares>) => {
+          set((state) => ({
+            squares:
+              typeof nextSquares === "function"
+                ? nextSquares(state.squares)
+                : nextSquares,
+          }));
+        },
+        setXIsNext: (nextXIsNext: StateUpdater<boolean>) => {
+          set((state) => ({
+            xIsNext:
+              typeof nextXIsNext === "function"
+                ? nextXIsNext(state.xIsNext)
+                : nextXIsNext,
+          }));
+        },
+      };
+    }
+  )
 );
 
 export default useGameStore;
