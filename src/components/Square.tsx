@@ -1,4 +1,3 @@
-
 interface SquareProps {
   value: string | null;
   onSquareClick: () => void;
@@ -28,4 +27,3 @@ const Square = ({ value, onSquareClick }: SquareProps) => {
 };
 
 export default Square;
-

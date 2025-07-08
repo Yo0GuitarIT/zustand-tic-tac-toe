@@ -33,8 +33,8 @@ const useGameStore = create(
           }));
         },
       };
-    }
-  )
+    },
+  ),
 );
 
 export default useGameStore;
