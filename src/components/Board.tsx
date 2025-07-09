@@ -19,12 +19,12 @@ const Board = () => {
   return (
     <div
       style={{
+        border: "1px solid #999",
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
         gridTemplateRows: "repeat(3, 1fr)",
-        width: "calc(3*2.5rem)",
         height: "calc(3*2.5rem)",
-        border: "1px solid #999",
+        width: "calc(3*2.5rem)",
       }}
     >
       {squares.map((square, squareIndex) => (

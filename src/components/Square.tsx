@@ -3,21 +3,21 @@ interface SquareProps {
   onSquareClick: () => void;
 }
 
-const Square = ({ value, onSquareClick }: SquareProps) => {
+const Square = ({ onSquareClick, value }: SquareProps) => {
   return (
     <button
       style={{
-        display: "inline-flex",
         alignItems: "center",
-        justifyContent: "center",
-        padding: 0,
         backgroundColor: "#fff",
         border: "1px solid #999",
-        color: "#000",
-        outline: 0,
         borderRadius: 0,
+        color: "#000",
+        display: "inline-flex",
         fontSize: "1rem",
         fontWeight: "bold",
+        justifyContent: "center",
+        outline: 0,
+        padding: 0,
       }}
       onClick={onSquareClick}
     >
