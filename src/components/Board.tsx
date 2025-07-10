@@ -1,4 +1,9 @@
 import useGameStore from "../stores/game.store";
+import {
+  calculateStatus,
+  calculateTurns,
+  calculateWinner,
+} from "../utils/game.utils";
 import Square from "./Square";
 
 const Board = () => {
@@ -6,35 +11,41 @@ const Board = () => {
   const setXIsNext = useGameStore((state) => state.setXIsNext);
   const squares = useGameStore((state) => state.squares);
   const setSquares = useGameStore((state) => state.setSquares);
+  const winner = calculateWinner(squares);
+  const turns = calculateTurns(squares);
   const player = xIsNext ? "X" : "O";
+  const status = calculateStatus(winner, turns, player);
 
   const handleClick = (i: number) => {
     if (squares[i]) return;
-    const nextSquares = squares.slice();
+    const nextSquares = [...squares];
     nextSquares[i] = player;
     setSquares(nextSquares);
     setXIsNext(!xIsNext);
   };
 
   return (
-    <div
-      style={{
-        border: "1px solid #999",
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gridTemplateRows: "repeat(3, 1fr)",
-        height: "calc(3*2.5rem)",
-        width: "calc(3*2.5rem)",
-      }}
-    >
-      {squares.map((square, squareIndex) => (
-        <Square
-          key={squareIndex}
-          value={square}
-          onSquareClick={() => handleClick(squareIndex)}
-        />
-      ))}
-    </div>
+    <>
+      <div style={{ marginBottom: "0.5rem" }}>{status}</div>
+      <div
+        style={{
+          border: "1px solid #999",
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gridTemplateRows: "repeat(3, 1fr)",
+          height: "calc(3*2.5rem)",
+          width: "calc(3*2.5rem)",
+        }}
+      >
+        {squares.map((square, squareIndex) => (
+          <Square
+            key={squareIndex}
+            value={square}
+            onSquareClick={() => handleClick(squareIndex)}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 
