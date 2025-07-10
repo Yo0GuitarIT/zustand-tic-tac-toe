@@ -1,29 +1,31 @@
-import useGameStore from "../stores/game.store";
+import type { Squares } from "../types/game.type";
+import Square from "./Square";
 import {
   calculateStatus,
   calculateTurns,
   calculateWinner,
 } from "../utils/game.utils";
-import Square from "./Square";
 
-const Board = () => {
-  const xIsNext = useGameStore((state) => state.xIsNext);
-  const setXIsNext = useGameStore((state) => state.setXIsNext);
-  const squares = useGameStore((state) => state.squares);
-  const setSquares = useGameStore((state) => state.setSquares);
+interface BoardProps {
+  xIsNext: boolean;
+  squares: Squares;
+  onPlay: (nextSquares: Squares) => void;
+}
+
+const Board = ({ onPlay, squares, xIsNext }: BoardProps) => {
   const winner = calculateWinner(squares);
   const turns = calculateTurns(squares);
   const player = xIsNext ? "X" : "O";
   const status = calculateStatus(winner, turns, player);
 
   const handleClick = (i: number) => {
-    if (squares[i]) return;
+    if (squares[i] || winner) return;
     const nextSquares = [...squares];
     nextSquares[i] = player;
-    setSquares(nextSquares);
-    setXIsNext(!xIsNext);
+    onPlay(nextSquares);
   };
 
+  console.log("squares", squares);
   return (
     <>
       <div style={{ marginBottom: "0.5rem" }}>{status}</div>
@@ -37,7 +39,7 @@ const Board = () => {
           width: "calc(3*2.5rem)",
         }}
       >
-        {squares.map((square, squareIndex) => (
+        {squares?.map((square, squareIndex) => (
           <Square
             key={squareIndex}
             value={square}
