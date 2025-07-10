@@ -1,10 +1,10 @@
 import type { Squares } from "../types/game.type";
-import Square from "./Square";
 import {
   calculateStatus,
   calculateTurns,
   calculateWinner,
 } from "../utils/game.utils";
+import Square from "./Square";
 
 interface BoardProps {
   xIsNext: boolean;
