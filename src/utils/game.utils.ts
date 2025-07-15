@@ -1,9 +1,9 @@
-import type { Squares } from "../types/game.type";
+import type { Square } from "../types/game.type";
 
 /**
  * 計算勝利者
  */
-export const calculateWinner = (squares: Squares): string | null => {
+export const calculateWinner = (squares: Square[]): string | null => {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -31,7 +31,7 @@ export const calculateWinner = (squares: Squares): string | null => {
 /**
  * 計算剩餘的回合數
  */
-export const calculateTurns = (squares: Squares) => {
+export const calculateTurns = (squares: Square[]) => {
   return squares?.filter((square) => !square).length;
 };
 

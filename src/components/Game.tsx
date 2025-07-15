@@ -1,18 +1,23 @@
 import useGameStore from "../stores/game.store";
-import type { Squares } from "../types/game.type";
+import type { Square } from "../types/game.type";
 import Board from "./Board";
 
 const Game = () => {
   const history = useGameStore((state) => state.history);
   const setHistory = useGameStore((state) => state.setHistory);
-  const xIsNext = useGameStore((state) => state.xIsNext);
-  const setXIsNext = useGameStore((state) => state.setXIsNext);
-  const currentSquares = history[history.length - 1];
+  const currentMove = useGameStore((state) => state.currentMove);
+  const setCurrentMove = useGameStore((state) => state.setCurrentMove);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
 
-  const handlePlay = (nextSquares: Squares) => {
-    const newHistory = [...history, nextSquares];
-    setHistory(newHistory);
-    setXIsNext(!xIsNext);
+  const handlePlay = (nextSquares: Square[]) => {
+    const nextHistory = history.slice(0, currentMove + 1).concat([nextSquares]);
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+  };
+
+  const jumpTo = (nextMove: number) => {
+    setCurrentMove(nextMove);
   };
 
   return (
@@ -27,7 +32,21 @@ const Game = () => {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div style={{ marginLeft: "1rem" }}>
-        <ol>{/* TODO */}</ol>
+        <ol>
+          {history.map((_, historyIndex) => {
+            const description =
+              historyIndex > 0
+                ? `Go to move #${historyIndex}`
+                : "Go to game start";
+            return (
+              <li key={historyIndex}>
+                <button onClick={() => jumpTo(historyIndex)}>
+                  {description}
+                </button>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </div>
   );

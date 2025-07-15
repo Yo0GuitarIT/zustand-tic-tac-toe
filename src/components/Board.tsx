@@ -1,4 +1,4 @@
-import type { Squares } from "../types/game.type";
+import type { Square as SquareType } from "../types/game.type";
 import {
   calculateStatus,
   calculateTurns,
@@ -8,8 +8,8 @@ import Square from "./Square";
 
 interface BoardProps {
   xIsNext: boolean;
-  squares: Squares;
-  onPlay: (nextSquares: Squares) => void;
+  squares: SquareType[];
+  onPlay: (nextSquares: SquareType[]) => void;
 }
 
 const Board = ({ onPlay, squares, xIsNext }: BoardProps) => {
@@ -20,12 +20,11 @@ const Board = ({ onPlay, squares, xIsNext }: BoardProps) => {
 
   const handleClick = (i: number) => {
     if (squares[i] || winner) return;
-    const nextSquares = [...squares];
+    const nextSquares = squares.slice();
     nextSquares[i] = player;
     onPlay(nextSquares);
   };
 
-  console.log("squares", squares);
   return (
     <>
       <div style={{ marginBottom: "0.5rem" }}>{status}</div>
