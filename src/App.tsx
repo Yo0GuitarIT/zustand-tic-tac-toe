@@ -1,4 +1,5 @@
-import "./App.css";
+// import "./App.css";
+import Game from "./components/Game";
 
 import { create } from "zustand";
 
@@ -28,12 +29,7 @@ const Controls = () => {
 };
 
 function App() {
-  return (
-    <>
-      <BearCounter />
-      <Controls />
-    </>
-  );
+  return <Game />;
 }
 
 export default App;
